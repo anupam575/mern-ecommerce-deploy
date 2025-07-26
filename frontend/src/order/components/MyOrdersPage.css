@@ -1,0 +1,30 @@
+.my-orders-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 70px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.view-btn {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.view-btn:hover {
+  background-color: #0056b3;
+}

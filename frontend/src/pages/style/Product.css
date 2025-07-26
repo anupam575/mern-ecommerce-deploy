@@ -1,0 +1,163 @@
+.product-container {
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.search-form {
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  padding: 0.5rem;
+  width: 450px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.search-button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+.product-image:hover {
+  transform: scale(1.03); /* smooth zoom effect on hover */
+}
+
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.product-description {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+
+.product-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #388e3c;
+  margin-bottom: 6px;
+}
+
+.product-rating {
+  background-color: #388e3c;
+  color: white;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+
+
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.pagination-numbers {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  padding: 8px 14px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.page-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.page-btn.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+
+
+
+/* 🧱 GRID LAYOUT */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 products per row */
+   gap: 50px; /* ✅ Ye lagayega card ke beech gap */
+  padding: 50px;
+}
+
+/* 🧾 PRODUCT CARD */
+.product-card {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  margin: 10px 0;
+  width: 100%;        /* ✅ Grid cell के हिसाब से पूरा फैलता है */
+  height: auto;       /* ✅ Card height image और content के हिसाब से */
+  overflow: hidden;
+  position: relative;
+}
+
+/* 🖼️ PRODUCT IMAGE */
+.product-image {
+  width: 100%;             /* ✅ Image card की width के बराबर */
+  height: auto;            /* ✅ Height भी अपने आप होगी */
+  aspect-ratio: 1 / 1;     /* ✅ Maintain square ratio (optional but clean) */
+  object-fit: contain;     /* ✅ Image पूरी दिखे, crop न हो */
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}

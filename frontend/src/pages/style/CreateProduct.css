@@ -1,0 +1,68 @@
+/* createProduct.css */
+
+.create-product-modal {
+  width: 100%;
+  max-width: 600px;
+  margin: 110px auto;
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.create-product-modal h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.create-product-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-product-modal input,
+.create-product-modal textarea {
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.create-product-modal input[type="file"] {
+  padding: 5px;
+}
+
+.create-product-modal button {
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.create-product-modal button:hover {
+  background-color: #0056b3;
+}
+
+.preview-images {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.preview-images img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
