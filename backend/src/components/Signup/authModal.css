@@ -1,0 +1,75 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: white;
+  width: 100%;
+  max-width: 500px;
+  /* max-height: 120vh; */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow-y: auto; /* Scroll inside modal if content is big */
+  position: relative;
+}
+
+/* Close button style */
+.modal-close-btn {
+  position: absolute;
+  top: -7px;
+  right: 0px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Tabs style */
+.modal-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal-tabs button {
+  flex: 1;
+  padding: 10px;
+  font-weight: bold;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.modal-tabs button.active {
+  background-color: #2196f3;
+  color: white;
+}
+
+/* Form wrapper */
+.modal-form {
+  /* max-height: 60vh; */
+  height: 100%;
+  /* overflow-y: auto; */
+}
+
+.modal-container .login-container,
+.modal-container .register-container{
+  height: 100%;
+}
+
+.modal-container .login-container .login-form,
+.modal-container .register-container .register-form {
+  max-width: 100%;
+  border-radius: 0;
+}

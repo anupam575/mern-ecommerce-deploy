@@ -1,0 +1,164 @@
+/* Cart Page Container */
+.cart-page {
+  position: relative;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 150px auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.cart-page h2 {
+  margin-bottom: 1.5rem;
+  color: #0f1111;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* If cart is empty */
+.cart-page p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* Cart Items Wrapper */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Each Cart Item */
+.cart-item {
+  display: flex;
+  gap: 1.2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1.2rem;
+  padding-top: 1rem;
+}
+
+/* Item Image */
+.cart-item-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  border-radius: 6px;
+}
+
+/* Item Details */
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-item-details h3 {
+  font-size: 1.2rem;
+  color: #0f1111;
+  margin: 0;
+}
+
+.cart-item-details p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #565959;
+}
+
+/* Quantity Controls */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.quantity-control button {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  background-color: #f0f2f2;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.quantity-control button:hover {
+  background-color: #e3e3e3;
+}
+
+/* Remove Button */
+.remove-btn {
+  background: none;
+  border: none;
+  color: #c45500;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-top: 0.8rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.remove-btn:hover {
+  color: #a84300;
+  text-decoration: underline;
+}
+
+/* Cart Total Section */
+.cart-total {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.cart-total h3 {
+  font-size: 1.5rem;
+  color: #0f1111;
+  margin-bottom: 1rem;
+}
+
+/* Buy Now Button */
+.buy-now-btn {
+  background-color: #f0c14b;
+  border: 1px solid #a88734;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #111;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.buy-now-btn:hover {
+  background-color: #e2b33b;
+}
+
+/* Responsive Layout */
+@media (max-width: 600px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cart-item-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cart-item-details {
+    align-items: center;
+  }
+
+  .cart-total {
+    text-align: center;
+  }
+}

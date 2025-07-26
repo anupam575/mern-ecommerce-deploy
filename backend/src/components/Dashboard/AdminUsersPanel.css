@@ -1,0 +1,107 @@
+/* AdminUsersPanel.css */
+
+.admin-panel {
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+.admin-panel h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.logged-in-user {
+  background-color: #dff4ff;
+  padding: 1rem;
+  border-left: 4px solid #3498db;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.logged-in-user p {
+  margin: 0.3rem 0;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+
+.user-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.user-table tr:hover {
+  background-color: #e8f4ff;
+}
+
+.user-table select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.user-table button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.user-table button:hover {
+  opacity: 0.9;
+}
+
+.user-table button:first-of-type {
+  background-color: #3498db;
+  color: white;
+  margin-right: 5px;
+}
+
+.user-table button:last-of-type {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.single-user-details {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #fafafa;
+  border-left: 4px solid #666;
+  border-radius: 8px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #15fa47;
+  color: #000;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: 0.2s ease-in-out;
+  margin-top: 90px;
+}
+
+.back-btn:hover {
+  background-color: #ea0808a2;
+}

@@ -1,0 +1,72 @@
+/* MyProfile.css */
+
+/* Container को center और थोड़ा कार्ड जैसा look देना */
+.profile-container {
+  max-width: 500px;
+  margin: 80px auto;         /* ऊपर से थोड़ी जगह, फिर horizontally center */
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;        /* सारे text और items center-align */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Heading */
+.profile-container h2 {
+  margin-bottom: 16px;
+  font-size: 1.75rem;
+  color: #333;
+}
+
+/* Details को column में space के साथ arrange */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;                 /* Items के बीच vertical gap */
+}
+
+/* Text styling */
+.profile-details p {
+  margin: 4px 0;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Avatar styling */
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2874f0;
+  margin: 16px 0;
+}
+
+/* Logout button centered और styled */
+.logout-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 20px;          /* ऊपर से spacing */
+  align-self: center;        /* अगर flex container में हो */
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Error text (not authenticated) */
+.error-text {
+  margin: 80px auto;
+  text-align: center;
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
