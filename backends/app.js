@@ -18,9 +18,10 @@ const app = express();
 dotenv.config({ path: path.join(__dirname, "config/config.env") });
 console.log("✅ FRONTEND_URL Loaded:", process.env.FRONTEND_URL);
 
-// ✅ Security Middlewares
+// ✅ Trust proxy for proper client IP detection (important for Render/Vercel)
+app.set("trust proxy", 1); // 1 = trust first proxy
 
-// Helmet - secure HTTP headers
+// ✅ Security Middlewares
 app.use(helmet());
 
 // Rate limiting - max 100 requests per 10 min
@@ -31,7 +32,7 @@ const limiter = rateLimit({
 });
 app.use("/api", limiter);
 
-// ✅ CORS
+// ✅ CORS - allow frontend only
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -66,4 +67,14 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   });
 }
 
+// ✅ Global error handler (optional, recommended)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+  });
+});
+
 export default app;
+
