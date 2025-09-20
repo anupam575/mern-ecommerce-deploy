@@ -1,0 +1,150 @@
+/* =========================
+   Product Details Page
+========================= */
+.amazon-product-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 150px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* -------- Left (Image) -------- */
+.amazon-product-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 100px;
+}
+
+.amazon-product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* -------- Right (Details) -------- */
+.amazon-product-right {
+  flex: 2;
+  margin-left: 100px;
+}
+
+.amazon-product-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.amazon-product-description {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: #555;
+}
+
+.amazon-product-rating {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #f59e0b; /* amber */
+}
+
+.amazon-product-price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 10px 0;
+  color: #10b981; /* green */
+}
+
+.amazon-product-category {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* -------- Stock Status -------- */
+.amazon-product-stock {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.amazon-product-stock.in-stock {
+  color: #10b981;
+}
+
+.amazon-product-stock.low-stock {
+  color: #f59e0b;
+}
+
+.amazon-product-stock.out-of-stock {
+  color: #dc2626;
+}
+
+/* -------- Actions -------- */
+.amazon-product-actions {
+  margin-top: 20px;
+}
+
+.add-to-cart-btn {
+  padding: 12px 20px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+.add-to-cart-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* =========================
+   📱 Responsive (Mobile)
+========================= */
+@media (max-width: 768px) {
+  .amazon-product-container {
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .amazon-product-left {
+    justify-content: center;
+    margin-left: 1px;
+  }
+
+  .amazon-product-image {
+    max-width: 90%;
+    height: auto;
+    margin-top: 100px;
+  }
+
+  .amazon-product-right {
+    text-align: center;
+  margin-left: 1px;
+  }
+
+  .amazon-product-title {
+    font-size: 1.4rem;
+  }
+
+  .amazon-product-price {
+    font-size: 1.3rem;
+  }
+
+  .add-to-cart-btn {
+    width: 100%;
+  }
+}

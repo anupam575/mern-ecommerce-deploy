@@ -1,0 +1,142 @@
+.admin-products-container {
+  padding: 20px;
+  margin-top: 90px;
+  font-family: Arial, sans-serif;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.top-bar h2 {
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.back-btn {
+  text-decoration: none;
+  background: #4caf50;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #43a047;
+}
+
+/* Loading/Error/No Data */
+.loading-text,
+.error-text,
+.no-data-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+/* Table (Desktop) */
+.desktop-table {
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.products-table th {
+  background: #f4f4f4;
+  font-weight: bold;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.edit-btn {
+  background: #2196f3;
+  color: #fff;
+  margin-right: 8px;
+}
+
+.edit-btn:hover {
+  background: #1976d2;
+}
+
+.delete-btn {
+  background: #f44336;
+  color: #fff;
+  border: none;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
+}
+
+/* Mobile Cards */
+.mobile-cards {
+  display: none;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.product-card h3 {
+  margin: 0 0 10px;
+}
+
+.product-card p {
+  margin: 4px 0;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ✅ 
+/* Default - Desktop में table दिखेगा, mobile cards छुपे रहेंगे */
+.desktop-table {
+  display: block;
+}
+
+.mobile-cards {
+  display: none;
+}
+
+/* ✅ Responsive Breakpoints */
+@media (max-width: 768px) {
+  .desktop-table {
+    display: none !important; /* Force hide table */
+  }
+
+  .mobile-cards {
+    display: block !important; /* Force show cards */
+  }
+}

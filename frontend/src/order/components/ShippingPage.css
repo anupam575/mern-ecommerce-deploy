@@ -1,0 +1,162 @@
+/* ===== Shipping Page Container ===== */
+.shipping-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 130px auto 50px auto;
+  flex-wrap: wrap;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+/* ===== Left Section: Cart Summary ===== */
+.shipping-left {
+  flex: 1;
+  min-width: 300px;
+  border-right: 1px solid #e0e0e0;
+  padding-right: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.shipping-left h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.summary-item img {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.summary-item div p {
+  margin: 2px 0;
+}
+
+.shipping-left h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+/* ===== Right Section: Shipping Form ===== */
+.shipping-right {
+  flex: 1;
+  min-width: 300px;
+  padding-left: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.shipping-right h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+}
+
+.shipping-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.shipping-form .form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.shipping-form input,
+.shipping-form textarea {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 90%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.shipping-form input:focus,
+.shipping-form textarea:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+}
+
+/* ===== Submit Button ===== */
+.submit-btn {
+  padding: 12px;
+  background-color: #28a745;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+.submit-btn:disabled {
+  background-color: #94d3a2;
+  cursor: not-allowed;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .shipping-container {
+    flex-direction: column;
+    padding: 20px;
+    gap: 25px;
+  }
+
+  .shipping-left, .shipping-right {
+    border-right: none;
+    padding: 20px;
+  }
+
+  .shipping-right {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .shipping-container {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .summary-item img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .shipping-form input,
+  .shipping-form textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .submit-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+}

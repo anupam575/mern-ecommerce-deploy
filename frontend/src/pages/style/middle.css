@@ -1,0 +1,99 @@
+/* 🌐 Base (Amazon Desktop Style) */
+.banner-slider {
+  position: relative;
+  width: 100%;
+  max-height: 450px;  /* Amazon जैसी height */
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+  transition: transform 0.6s ease-in-out;
+  display: block;
+  margin: 0;
+  padding: 0;
+  margin-top: 113px; /* header offset */
+}
+
+/* Body reset */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* 🎯 Arrows Amazon Style */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #111;
+  font-size: 2.2rem;
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+/* Show arrows on hover */
+.banner-slider:hover .arrow {
+  opacity: 1;
+}
+
+/* Hover effect */
+.arrow:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Arrow positioning */
+.arrow.left {
+  left: 20px;
+}
+
+.arrow.right {
+  right: 20px;
+}
+
+/* 📱 Mobile (max 600px) */
+@media (max-width: 600px) {
+  .banner-slider {
+    max-height: 320px; /* छोटा banner */
+  }
+
+  .banner-image {
+    margin-top: 103px;  /* header gap छोटा */
+    object-fit: fill; /* mobile पर अच्छा दिखे */
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+    padding: 5px 9px;
+  }
+}
+
+/* 📲 Tablet (601px - 992px) */
+@media (min-width: 601px) and (max-width: 992px) {
+  .banner-slider {
+    max-height: 320px;
+  }
+
+  .banner-image {
+    margin-top: 90px;
+    object-fit: cover;
+  }
+
+  .arrow {
+    font-size: 1.8rem;
+    padding: 6px 10px;
+  }
+}

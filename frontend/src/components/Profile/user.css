@@ -1,0 +1,84 @@
+/* Container */
+.user-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Heading */
+.user-container h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  color: #222;
+}
+
+/* User card */
+.user-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Avatar */
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: fill;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  margin: 0.5rem 0;
+  align-self: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* Text States */
+.loading-text {
+  color: #007bff;
+  font-weight: 500;
+  text-align: center;
+}
+
+.error-text {
+  color: #d9534f;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* General Paragraphs */
+.user-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.user-card strong {
+  color: #111;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .user-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .user-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+  }
+}

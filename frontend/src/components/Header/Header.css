@@ -1,0 +1,156 @@
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 48px;
+  background-color: #2874f0;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* यह वाला flex container अब दो हिस्सों में बंटेगा:
+   - Left side (अगर कोई content होगा तो)
+   - .header-right (हमारे avatar+signup) */
+.nav-links {
+  display: flex;
+  /* flex:1; */    /* अगर left में कुछ नहीं है तो इस लाइन को भी add कर सकते हैं */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;          /* avatar और signup के बीच spacing */
+  margin-left: auto;  /* ⬅️ यह avatar+signup को पूरी तरह दाईं ओर धकेलेगा */
+}
+
+.header-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: fill;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.signup-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 34px;
+  transition: background 0.2s ease;
+  background-color: transparent; /* optional */
+  gap: 8px; /* spacing between icon and text */
+}
+
+.signup-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.dashboard-link {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+/* Directly target the icon inside */
+.dashboard-link svg {
+  width: 28px;
+  height: 28px;
+  color: white;
+  font-size: 28px;
+}
+.dashboard-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.carpage {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #111;
+  
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+
+
+
+.carpage svg {
+  font-size: 32px;   /* bigger icon */
+  color: white;    /* Amazon-style orange, or choose your own */
+  vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Logo Section */
+.header-logo {
+  height: 150px;              /* Adjust height as needed */
+  width: auto;
+  object-fit: contain;
+  display: block;
+  background-color: transparent;  /* Ensure no white/black background */
+  margin-left: 20px;         /* Optional: spacing from left */
+filter: brightness(1.8) drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+
+}
+
+
+
+
+
+
+
+@media (max-width: 991px) {
+  .header-logo {
+    display: none;
+  }
+  .main-header .header-right {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2874f0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .search-form {
+    /* margin-left: 0 !important */
+    max-width: 100%;
+    width: 100% !important;
+  }
+}
+

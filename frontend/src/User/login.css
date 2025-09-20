@@ -1,0 +1,196 @@
+ 
+.login-form {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #111827;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* ------------------------
+   Input Fields
+------------------------- */
+.login-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.login-form input {
+  width: 92%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+  margin-bottom: 15px;
+}
+
+.login-form input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ------------------------
+   Password Field
+------------------------- */
+.login-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.login-password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.login-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.login-password-toggle:hover {
+  opacity: 1;
+}
+
+/* ------------------------
+   Submit Button
+------------------------- */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.3s ease;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.login-btn:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.login-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: login-spin 0.6s linear infinite;
+}
+
+@keyframes login-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ------------------------
+   Forgot Password
+------------------------- */
+.forgot-password {
+  text-align: center;
+  margin-top: 15px;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+
+/* ------------------------
+   Responsive Design
+------------------------- */
+
+/* Tablet screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .login-form {
+    padding: 25px 20px;
+    max-width: 90%;
+  }
+
+  .login-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .login-form input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .login-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 20px 15px;
+    max-width: 95%;
+    border-radius: 8px;
+  }
+
+  .login-form h2 {
+    font-size: 1.3rem;
+  }
+
+  .login-form label {
+    font-size: 0.85rem;
+  }
+
+  .login-form input {
+    padding: 9px 10px;
+    font-size: 0.85rem;
+  }
+
+  .login-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .forgot-password {
+    font-size: 0.8rem;
+  }
+}
