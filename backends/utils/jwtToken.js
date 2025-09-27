@@ -55,3 +55,4 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
 };
 
 export default sendToken;
+
