@@ -18,12 +18,13 @@ const app = express();
 dotenv.config({ path: path.join(__dirname, "config/config.env") });
 console.log("✅ FRONTEND_URL Loaded:", process.env.FRONTEND_URL);
 
-// ✅ Security Middlewares
+// ✅ Tell Express it's behind a proxy (important for Render/Vercel)
+app.set("trust proxy", 1);
 
-// Helmet - secure HTTP headers
+// ✅ Security Middlewares
 app.use(helmet());
 
-// Rate limiting - max 100 requests per 10 min
+// ✅ Rate limiting - max 100 requests per 10 min
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
   max: 100,
@@ -67,5 +68,3 @@ if (process.env.NODE_ENV === "PRODUCTION") {
 }
 
 export default app;
-
-
