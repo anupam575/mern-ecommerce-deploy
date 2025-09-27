@@ -1,3 +1,4 @@
+
 // utils/sendToken.js
 import { generateAccessToken, generateRefreshToken } from "../models/userModel.js";
 import { formatUser } from "../utils/formatUser.js";
@@ -19,8 +20,8 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
   // Access token cookie options (15 mins)
   const accessOptions = {
     expires: new Date(Date.now() + 15 * 60 * 1000),
-    httpOnly: true,
-    secure: isProd,
+    httpOnly: true, // JS cannot access cookie
+    secure: isProd, // only HTTPS in production
     sameSite: isProd ? "None" : "Lax",
     path: "/",
   };
@@ -34,11 +35,6 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
     path: "/",
   };
 
-  // Debug logs
-  console.log("🔹 DEBUG: Sending Tokens");
-  console.log("  AccessToken cookie options:", accessOptions);
-  console.log("  RefreshToken cookie options:", refreshOptions);
-
   // Remove sensitive fields from user
   const safeUser = formatUser(user);
 
@@ -49,11 +45,9 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
     .cookie("refreshToken", refreshToken, refreshOptions)
     .json({
       success: true,
-      message,
+      message, // Dynamic message
       user: safeUser,
     });
 };
 
 export default sendToken;
-
-
