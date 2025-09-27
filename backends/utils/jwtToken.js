@@ -1,4 +1,3 @@
-
 // utils/sendToken.js
 import { generateAccessToken, generateRefreshToken } from "../models/userModel.js";
 import { formatUser } from "../utils/formatUser.js";
@@ -51,3 +50,4 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
 };
 
 export default sendToken;
+
