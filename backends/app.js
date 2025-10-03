@@ -6,27 +6,27 @@ import dotenv from "dotenv";
 
 const app = express();
 
-// Load environment variables
+// ✅ Load env variables
 dotenv.config();
 console.log("✅ FRONTEND_URL Loaded:", process.env.FRONTEND_URL);
 
-// Determine if production
-const isProduction = process.env.NODE_ENV === "production";
-
-// CORS setup
+// ✅ CORS setup (local + production)
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // deployed frontend URL
-    credentials: true,               // allow cookies
+    origin: [
+      process.env.FRONTEND_URL || "http://localhost:3000", // deployed frontend
+      "http://localhost:3000",                            // local dev
+    ],
+    credentials: true, // allow cookies across origin
   })
 );
 
-// Middlewares
+// ✅ Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Routes
+// ✅ Routes
 import productRoutes from "./routes/productRoute.js";
 import userRoutes from "./routes/userRoute.js";
 import orderRoutes from "./routes/orderRoute.js";
