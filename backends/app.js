@@ -6,27 +6,34 @@ import dotenv from "dotenv";
 
 const app = express();
 
-// ✅ Load env variables
+// Load environment variables
 dotenv.config();
 console.log("✅ FRONTEND_URL Loaded:", process.env.FRONTEND_URL);
 
-// ✅ CORS setup (local + production)
+// Allowed origins
+const allowedOrigins = [
+  process.env.FRONTEND_URL, // deployed frontend
+  "http://localhost:3000",   // local dev
+];
+
+// CORS setup
 app.use(
   cors({
-    origin: [
-      process.env.FRONTEND_URL || "http://localhost:3000", // deployed frontend
-      "http://localhost:3000",                            // local dev
-    ],
-    credentials: true, // allow cookies across origin
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Postman or same-origin
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("CORS not allowed"));
+    },
+    credentials: true, // allow cookies
   })
 );
 
-// ✅ Middlewares
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// ✅ Routes
+// Routes
 import productRoutes from "./routes/productRoute.js";
 import userRoutes from "./routes/userRoute.js";
 import orderRoutes from "./routes/orderRoute.js";
