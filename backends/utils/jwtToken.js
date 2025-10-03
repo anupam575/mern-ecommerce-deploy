@@ -3,31 +3,35 @@ import { generateAccessToken, generateRefreshToken } from "../models/userModel.j
 import { formatUser } from "../utils/formatUser.js";
 
 /**
- * Send JWT tokens in secure cookies
+ * Send JWT tokens to the client in cookies (simplified version).
+ * @param {Object} user - Mongoose user document
+ * @param {number} statusCode - HTTP status code
+ * @param {Object} res - Express response object
+ * @param {string} message - Optional message for frontend toast
  */
 const sendToken = (user, statusCode, res, message = "Operation successful") => {
+  // Generate tokens
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  // ✅ Cross-origin ke liye hamesha secure cookies use kar
+  // Access token cookie options (15 mins)
   const accessOptions = {
-    expires: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes
+    expires: new Date(Date.now() + 15 * 60 * 1000),
     httpOnly: true,
     path: "/",
-    secure: true,      // 🔥 Always true (Render is HTTPS)
-    sameSite: "None",  // 🔥 Required for Vercel <-> Render cross-domain
   };
 
+  // Refresh token cookie options (7 days)
   const refreshOptions = {
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     path: "/",
-    secure: true,
-    sameSite: "None",
   };
 
+  // Remove sensitive fields from user
   const safeUser = formatUser(user);
 
+  // Send response with cookies and message
   res
     .status(statusCode)
     .cookie("accessToken", accessToken, accessOptions)
