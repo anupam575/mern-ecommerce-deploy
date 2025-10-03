@@ -1,28 +1,29 @@
+// utils/sendToken.js
 import { generateAccessToken, generateRefreshToken } from "../models/userModel.js";
 import { formatUser } from "../utils/formatUser.js";
 
+/**
+ * Send JWT tokens in secure cookies
+ */
 const sendToken = (user, statusCode, res, message = "Operation successful") => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  const isProduction = process.env.NODE_ENV === "production";
-
-  // Access token cookie (15 mins)
+  // ✅ Cross-origin ke liye hamesha secure cookies use kar
   const accessOptions = {
-    expires: new Date(Date.now() + 15 * 60 * 1000),
+    expires: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes
     httpOnly: true,
     path: "/",
-    secure: isProduction,                   // HTTPS only in production
-    sameSite: isProduction ? "None" : "Lax" // cross-origin in production
+    secure: true,      // 🔥 Always true (Render is HTTPS)
+    sameSite: "None",  // 🔥 Required for Vercel <-> Render cross-domain
   };
 
-  // Refresh token cookie (7 days)
   const refreshOptions = {
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     httpOnly: true,
     path: "/",
-    secure: isProduction,
-    sameSite: isProduction ? "None" : "Lax"
+    secure: true,
+    sameSite: "None",
   };
 
   const safeUser = formatUser(user);
@@ -39,3 +40,4 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
 };
 
 export default sendToken;
+
