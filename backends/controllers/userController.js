@@ -4,38 +4,42 @@ import sendToken from "../utils/jwtToken.js";
 import crypto from "crypto";
 import cloudinary from "cloudinary";
 import bcrypt from "bcrypt";
-import sendEmail from "../utils/sendEmail.js"; // अगर sendEmail function use कर रहे हो
+import sendEmail from "../utils/sendEmail.js"; // अगर sendEmail function u
+
 
 export const refreshToken = async (req, res) => {
   try {
-    // 1️⃣ Refresh token cookie से लेना
+    // 1️⃣ Get refresh token from cookies
     const refreshToken = req.cookies?.refreshToken;
     if (!refreshToken) {
-      return res.status(401).json({ success: false, message: "Refresh token missing" });
+      return res.status(401).json({ success: false, message: "Not authenticated" });
     }
 
-    // 2️⃣ Token verify करना
+    // 2️⃣ Verify refresh token
     let decoded;
     try {
       decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    } catch (err) {
-      return res.status(403).json({ success: false, message: "Invalid or expired refresh token" });
+    } catch {
+      return res.status(403).json({ success: false, message: "Invalid or expired token" });
     }
 
-    // 3️⃣ User check करना
+    // 3️⃣ Check user existence
     const user = await User.findById(decoded.id).select("-password");
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    // 4️⃣ Send new access + refresh token
+    // 4️⃣ Token Rotation → हर बार नया refresh token generate करो
+    // Optional: पुराना refresh token DB/Redis में blacklist करो
     sendToken(user, 200, res);
 
   } catch (err) {
     console.error("❌ Refresh token error:", err);
-    res.status(500).json({ success: false, message: "Server error" });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
+
 // Generate Cloudinary signature
 export const getUploadSignature = (req, res) => {
   try {
