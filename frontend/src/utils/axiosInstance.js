@@ -1,28 +1,30 @@
-// utils/axiosInstance.js
 import axios from "axios";
 
-// ✅ Axios instance
+// Axios instance
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL, // deployed backend URL
-  withCredentials: true,                   // must for HttpOnly cookies
+  baseURL: process.env.REACT_APP_API_URL || "http://localhost:4000",
+  withCredentials: true, // HttpOnly refresh token
 });
 
-// ✅ Refresh token handling
-let isRefreshing = false;
-let failedQueue = [];
+let isRefreshing = false; // Flag to indicate refresh in progress
+let failedQueue = [];     // Queue to hold failed requests
 
+// Process all queued requests after refresh
 const processQueue = (error, token = null) => {
   failedQueue.forEach(prom => {
-    if (error) prom.reject(error);
-    else prom.resolve(token);
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
   });
   failedQueue = [];
 };
 
-// ✅ Response interceptor
+// Response interceptor
 API.interceptors.response.use(
-  response => response,
-  async error => {
+  (response) => response,
+  async (error) => {
     const originalRequest = error.config;
 
     // Only handle 401 errors for requests that haven't been retried
@@ -36,15 +38,15 @@ API.interceptors.response.use(
       }
 
       if (isRefreshing) {
-        // Queue requests while refresh is in progress
+        // If refresh is already in progress, queue this request
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
-          .then(token => {
+          .then((token) => {
             originalRequest.headers["Authorization"] = "Bearer " + token;
             return API(originalRequest);
           })
-          .catch(err => Promise.reject(err));
+          .catch((err) => Promise.reject(err));
       }
 
       originalRequest._retry = true;
@@ -57,14 +59,12 @@ API.interceptors.response.use(
         });
 
         const newToken = data.accessToken;
-
-        // Set new access token in default headers
         API.defaults.headers.common["Authorization"] = "Bearer " + newToken;
 
         // Retry all queued requests
         processQueue(null, newToken);
 
-        // Retry original request
+        // Retry the original request
         return API(originalRequest);
 
       } catch (refreshError) {
@@ -82,4 +82,5 @@ API.interceptors.response.use(
 );
 
 export default API;
+
 
