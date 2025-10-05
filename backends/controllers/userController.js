@@ -6,7 +6,6 @@ import cloudinary from "cloudinary";
 import bcrypt from "bcrypt";
 import sendEmail from "../utils/sendEmail.js"; // अगर sendEmail function u
 
-
 export const refreshToken = async (req, res) => {
   try {
     // 1️⃣ Ensure cookie-parser is installed and used in server.js/app.js
@@ -45,6 +44,7 @@ export const refreshToken = async (req, res) => {
 };
 
 
+// Generate Cloudinary signature
 export const getUploadSignature = (req, res) => {
   try {
     const timestamp = Math.round(Date.now() / 1000);
