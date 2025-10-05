@@ -8,13 +8,14 @@ const app = express();
 
 // ✅ Load environment variables
 dotenv.config();
-console.log("✅ FRONTEND_URL Loaded:", process.env.FRONTEND_URL || "http://localhost:3000");
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+console.log("✅ FRONTEND_URL Loaded:", FRONTEND_URL);
 
-// ✅ CORS (local only)
+// ✅ CORS configuration (Render + Vercel compatible)
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    credentials: true,
+    origin: [FRONTEND_URL, "https://mern-ecommerce-deploy-6iq35bal8-anupam3.vercel.app"], // ✅ allow both
+    credentials: true, // ✅ allow cookies across origins
   })
 );
 
@@ -35,6 +36,11 @@ app.use("/api/v1", userRoutes);
 app.use("/api/v1", orderRoutes);
 app.use("/api/v1", paymentRoutes);
 app.use("/api/v1", categoryRoutes);
+
+// ✅ Optional sanity check route (to verify deploy CORS)
+app.get("/", (req, res) => {
+  res.send("✅ Backend running and CORS configured correctly!");
+});
 
 export default app;
 
