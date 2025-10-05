@@ -2,21 +2,18 @@ import axios from "axios";
 
 // Axios instance
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || " https://mern-ecommerce-deploy-kgzf.onrender.com",
+  baseURL: process.env.REACT_APP_API_URL || "https://mern-ecommerce-deploy-kgzf.onrender.com",
   withCredentials: true, // HttpOnly refresh token
 });
 
 let isRefreshing = false; // Flag to indicate refresh in progress
 let failedQueue = [];     // Queue to hold failed requests
 
-// Process all queued requests after refresh
+// Process queued requests after refresh
 const processQueue = (error, token = null) => {
   failedQueue.forEach(prom => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
+    if (error) prom.reject(error);
+    else prom.resolve(token);
   });
   failedQueue = [];
 };
@@ -27,10 +24,8 @@ API.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Only handle 401 errors for requests that haven't been retried
     if (error.response?.status === 401 && !originalRequest._retry) {
 
-      // Prevent retrying refresh-token request itself
       if (originalRequest.url.includes("/refresh-token")) {
         localStorage.removeItem("user");
         window.location.href = "/login";
@@ -38,7 +33,6 @@ API.interceptors.response.use(
       }
 
       if (isRefreshing) {
-        // If refresh is already in progress, queue this request
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
@@ -53,7 +47,6 @@ API.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        // Call refresh-token endpoint
         const { data } = await API.get("/api/v1/refresh-token", {
           headers: { "Cache-Control": "no-cache" },
         });
@@ -61,10 +54,8 @@ API.interceptors.response.use(
         const newToken = data.accessToken;
         API.defaults.headers.common["Authorization"] = "Bearer " + newToken;
 
-        // Retry all queued requests
         processQueue(null, newToken);
 
-        // Retry the original request
         return API(originalRequest);
 
       } catch (refreshError) {
@@ -82,5 +73,3 @@ API.interceptors.response.use(
 );
 
 export default API;
-
-
