@@ -13,7 +13,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
     if (req.cookies?.accessToken) {
       token = req.cookies.accessToken;
     } 
-    // Fallback to Authorization header
+    // ✅ Fallback to Authorization header if cookie not found
     else if (req.headers.authorization?.startsWith("Bearer")) {
       token = req.headers.authorization.split(" ")[1];
     }
@@ -25,7 +25,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
       });
     }
 
-    // Verify JWT
+    // Verify JWT token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Find user in DB
@@ -43,7 +43,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
   } catch (err) {
     return res.status(403).json({
       success: false,
-      message: "Token expired or invalid. Please refresh.",
+      message: "Token expired or invalid. Please login again.",
     });
   }
 };
@@ -67,4 +67,3 @@ export const authorizeRoles = (...roles) => {
     next();
   };
 };
-
