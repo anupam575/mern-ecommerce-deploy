@@ -1,9 +1,8 @@
-// utils/sendToken.js
 import { generateAccessToken, generateRefreshToken } from "../models/userModel.js";
 import { formatUser } from "../utils/formatUser.js";
 
 /**
- * Send JWT tokens to the client in cookies (simplified version).
+ * Send JWT tokens to the client in cookies (cross-origin ready)
  * @param {Object} user - Mongoose user document
  * @param {number} statusCode - HTTP status code
  * @param {Object} res - Express response object
@@ -14,10 +13,15 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
+  // Detect production for secure cookies
+  const isProduction = process.env.NODE_ENV === "production";
+
   // Access token cookie options (15 mins)
   const accessOptions = {
     expires: new Date(Date.now() + 15 * 60 * 1000),
-    httpOnly: true,
+    httpOnly: true,           // JS can't access token
+    secure: isProduction,     // HTTPS only
+    sameSite: "None",         // cross-origin cookies
     path: "/",
   };
 
@@ -25,6 +29,8 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
   const refreshOptions = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
+    secure: isProduction,
+    sameSite: "None",
     path: "/",
   };
 
@@ -44,4 +50,5 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
 };
 
 export default sendToken;
+
 
