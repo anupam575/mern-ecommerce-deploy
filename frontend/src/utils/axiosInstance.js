@@ -1,8 +1,11 @@
 import axios from "axios";
 
+// ✅ Base URL handling (trim to remove extra spaces)
+const BASE_URL = process.env.REACT_APP_API_URL?.trim() || "https://mern-ecommerce-deploy-kgzf.onrender.com";
+
 // Axios instance
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "https://mern-ecommerce-deploy-kgzf.onrender.com",
+  baseURL: BASE_URL,
   withCredentials: true, // HttpOnly refresh token
 });
 
@@ -20,12 +23,13 @@ const processQueue = (error, token = null) => {
 
 // Response interceptor
 API.interceptors.response.use(
-  (response) => response,
-  async (error) => {
+  response => response,
+  async error => {
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
 
+      // Prevent infinite loop on refresh-token endpoint
       if (originalRequest.url.includes("/refresh-token")) {
         localStorage.removeItem("user");
         window.location.href = "/login";
@@ -36,17 +40,18 @@ API.interceptors.response.use(
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
-          .then((token) => {
-            originalRequest.headers["Authorization"] = "Bearer " + token;
-            return API(originalRequest);
-          })
-          .catch((err) => Promise.reject(err));
+        .then(token => {
+          originalRequest.headers["Authorization"] = "Bearer " + token;
+          return API(originalRequest);
+        })
+        .catch(err => Promise.reject(err));
       }
 
       originalRequest._retry = true;
       isRefreshing = true;
 
       try {
+        // Call refresh-token endpoint (cookies sent automatically)
         const { data } = await API.get("/api/v1/refresh-token", {
           headers: { "Cache-Control": "no-cache" },
         });
@@ -73,3 +78,4 @@ API.interceptors.response.use(
 );
 
 export default API;
+
