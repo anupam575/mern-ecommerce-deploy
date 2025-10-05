@@ -9,38 +9,42 @@ import sendEmail from "../utils/sendEmail.js"; // अगर sendEmail function u
 
 export const refreshToken = async (req, res) => {
   try {
-    // 1️⃣ Get refresh token from cookies
+    // 1️⃣ Ensure cookie-parser is installed and used in server.js/app.js
+    // Example: app.use(cookieParser());
+
+    // 2️⃣ Get refresh token from cookies
     const refreshToken = req.cookies?.refreshToken;
     if (!refreshToken) {
       return res.status(401).json({ success: false, message: "Not authenticated" });
     }
 
-    // 2️⃣ Verify refresh token
+    // 3️⃣ Verify refresh token
     let decoded;
     try {
       decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    } catch {
+    } catch (err) {
       return res.status(403).json({ success: false, message: "Invalid or expired token" });
     }
 
-    // 3️⃣ Check user existence
+    // 4️⃣ Check user existence in DB
     const user = await User.findById(decoded.id).select("-password");
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    // 4️⃣ Token Rotation → हर बार नया refresh token generate करो
-    // Optional: पुराना refresh token DB/Redis में blacklist करो
-    sendToken(user, 200, res);
+    // 5️⃣ Token Rotation: generate new access & refresh tokens
+    // Optional: blacklist old refresh token in DB/Redis
+    sendToken(user, 200, res, "Token refreshed successfully");
 
   } catch (err) {
     console.error("❌ Refresh token error:", err);
+
+    // 6️⃣ Server error fallback
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 
 
-// Generate Cloudinary signature
 export const getUploadSignature = (req, res) => {
   try {
     const timestamp = Math.round(Date.now() / 1000);
