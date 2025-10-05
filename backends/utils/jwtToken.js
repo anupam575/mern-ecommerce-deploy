@@ -2,7 +2,7 @@ import { generateAccessToken, generateRefreshToken } from "../models/userModel.j
 import { formatUser } from "../utils/formatUser.js";
 
 /**
- * Send JWT tokens to the client in cookies (cross-origin ready)
+ * Send JWT tokens to the client in cookies (cross-origin ready for Render + Vercel)
  * @param {Object} user - Mongoose user document
  * @param {number} statusCode - HTTP status code
  * @param {Object} res - Express response object
@@ -13,31 +13,31 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  // Detect production for secure cookies
+  // Detect environment
   const isProduction = process.env.NODE_ENV === "production";
 
-  // Access token cookie options (15 mins)
+  // ✅ Access token cookie options (15 mins)
   const accessOptions = {
     expires: new Date(Date.now() + 15 * 60 * 1000),
-    httpOnly: true,           // JS can't access token
-    secure: isProduction,     // HTTPS only
-    sameSite: "None",         // cross-origin cookies
+    httpOnly: true,
+    secure: isProduction,     // HTTPS required in production
+    sameSite: isProduction ? "None" : "Lax", // None for cross-origin
     path: "/",
   };
 
-  // Refresh token cookie options (7 days)
+  // ✅ Refresh token cookie options (7 days)
   const refreshOptions = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: isProduction,
-    sameSite: "None",
+    sameSite: isProduction ? "None" : "Lax",
     path: "/",
   };
 
-  // Remove sensitive fields from user
+  // ✅ Sanitize user data (remove password, etc.)
   const safeUser = formatUser(user);
 
-  // Send response with cookies and message
+  // ✅ Set cookies + send JSON
   res
     .status(statusCode)
     .cookie("accessToken", accessToken, accessOptions)
