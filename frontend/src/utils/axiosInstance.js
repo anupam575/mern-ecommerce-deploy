@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios instance
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:4000",
+  baseURL: process.env.REACT_APP_API_URL || " https://mern-ecommerce-deploy-kgzf.onrender.com",
   withCredentials: true, // HttpOnly refresh token
 });
 
