@@ -13,32 +13,40 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  // ✅ Detect environment
-  const isProduction = process.env.NODE_ENV === "production";
+  // ✅ Detect production/deployed environment
+  const isDeployed =
+    process.env.FRONTEND_URL?.includes("vercel.app") ||
+    process.env.FRONTEND_URL?.includes("netlify.app") ||
+    process.env.NODE_ENV === "production";
 
-  // ✅ Cookie options
+  // ✅ Cookie options setup
   const cookieOptions = (expiresIn) => ({
     expires: new Date(Date.now() + expiresIn),
     httpOnly: true,
-    secure: isProduction,               // HTTPS only in production
-    sameSite: isProduction ? "None" : "Lax", // cross-origin in prod, lax in dev
-    path: "/",
+    secure: isDeployed, // ✅ must be true for HTTPS (Render)
+    sameSite: isDeployed ? "None" : "Lax", // ✅ "None" for cross-site cookie sharing
+    path: "/", // ✅ required for refresh route
   });
 
-  const accessOptions = cookieOptions(15 * 60 * 1000);        // 15 mins
+  const accessOptions = cookieOptions(15 * 60 * 1000); // 15 minutes
   const refreshOptions = cookieOptions(7 * 24 * 60 * 60 * 1000); // 7 days
 
-  const safeUser = formatUser(user); // sanitize user data
+  const safeUser = formatUser(user); // remove sensitive fields
 
-  // ✅ Set cookies and return JSON
+  // ✅ Send tokens as cookies + JSON response
   res
     .status(statusCode)
     .cookie("accessToken", accessToken, accessOptions)
     .cookie("refreshToken", refreshToken, refreshOptions)
-    .json({ success: true, message, user: safeUser });
+    .json({
+      success: true,
+      message,
+      user: safeUser,
+    });
 };
 
 export default sendToken;
+
 
 
 
