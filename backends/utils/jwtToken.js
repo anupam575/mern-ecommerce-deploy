@@ -13,22 +13,16 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  // ✅ Detect production/deployed environment
-  const isDeployed =
-    process.env.FRONTEND_URL?.includes("vercel.app") ||
-    process.env.FRONTEND_URL?.includes("netlify.app") ||
-    process.env.NODE_ENV === "production";
-
-  // ✅ Cookie options setup
+  // ✅ Cookie options (deploy safe)
   const cookieOptions = (expiresIn) => ({
     expires: new Date(Date.now() + expiresIn),
-    httpOnly: true,
-    secure: isDeployed, // ✅ must be true for HTTPS (Render)
-    sameSite: isDeployed ? "None" : "Lax", // ✅ "None" for cross-site cookie sharing
-    path: "/", // ✅ required for refresh route
+    httpOnly: true,   // JS cannot access
+    secure: true,     // ✅ must be true for HTTPS deploy
+    sameSite: "None", // ✅ cross-origin cookie allowed
+    path: "/",        // cookie available to all routes
   });
 
-  const accessOptions = cookieOptions(15 * 60 * 1000); // 15 minutes
+  const accessOptions = cookieOptions(15 * 60 * 1000);        // 15 minutes
   const refreshOptions = cookieOptions(7 * 24 * 60 * 60 * 1000); // 7 days
 
   const safeUser = formatUser(user); // remove sensitive fields
@@ -46,6 +40,7 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
 };
 
 export default sendToken;
+
 
 
 
