@@ -13,33 +13,36 @@ const sendToken = (user, statusCode, res, message = "Operation successful") => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  // ✅ Cookie options (deploy safe)
+  // ✅ Detect environment
+  const isProduction = process.env.NODE_ENV === "production";
+
+  // ✅ Cookie options
   const cookieOptions = (expiresIn) => ({
     expires: new Date(Date.now() + expiresIn),
-    httpOnly: true,   // JS cannot access
-    secure: true,     // ✅ must be true for HTTPS deploy
-    sameSite: "None", // ✅ cross-origin cookie allowed
-    path: "/",        // cookie available to all routes
+    httpOnly: true,
+    secure: isProduction,               // HTTPS only in production
+    sameSite: isProduction ? "None" : "Lax", // cross-origin in prod, lax in dev
+    path: "/",
   });
 
-  const accessOptions = cookieOptions(15 * 60 * 1000);        // 15 minutes
+  const accessOptions = cookieOptions(15 * 60 * 1000);        // 15 mins
   const refreshOptions = cookieOptions(7 * 24 * 60 * 60 * 1000); // 7 days
 
-  const safeUser = formatUser(user); // remove sensitive fields
+  const safeUser = formatUser(user); // sanitize user data
 
-  // ✅ Send tokens as cookies + JSON response
+  // ✅ Set cookies and return JSON
   res
     .status(statusCode)
     .cookie("accessToken", accessToken, accessOptions)
     .cookie("refreshToken", refreshToken, refreshOptions)
-    .json({
-      success: true,
-      message,
-      user: safeUser,
-    });
+    .json({ success: true, message, user: safeUser });
 };
 
 export default sendToken;
+
+
+
+
 
 
 
