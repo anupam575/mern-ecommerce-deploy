@@ -1,22 +1,22 @@
 import axios from "axios";
 
-// ✅ Base URL handling (trim to remove extra spaces)
+// ✅ Base URL handling
 const BASE_URL = process.env.REACT_APP_API_URL?.trim() || "https://mern-ecommerce-deploy-kgzf.onrender.com";
 
 // Axios instance
 const API = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true, // HttpOnly refresh token
+  withCredentials: true, // cookies automatically sent
 });
 
 let isRefreshing = false; // Flag to indicate refresh in progress
 let failedQueue = [];     // Queue to hold failed requests
 
 // Process queued requests after refresh
-const processQueue = (error, token = null) => {
+const processQueue = (error) => {
   failedQueue.forEach(prom => {
     if (error) prom.reject(error);
-    else prom.resolve(token);
+    else prom.resolve();
   });
   failedQueue = [];
 };
@@ -40,10 +40,7 @@ API.interceptors.response.use(
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
-        .then(token => {
-          originalRequest.headers["Authorization"] = "Bearer " + token;
-          return API(originalRequest);
-        })
+        .then(() => API(originalRequest)) // retry after refresh
         .catch(err => Promise.reject(err));
       }
 
@@ -52,19 +49,16 @@ API.interceptors.response.use(
 
       try {
         // Call refresh-token endpoint (cookies sent automatically)
-        const { data } = await API.get("/api/v1/refresh-token", {
+        await API.get("/api/v1/refresh-token", {
           headers: { "Cache-Control": "no-cache" },
         });
 
-        const newToken = data.accessToken;
-        API.defaults.headers.common["Authorization"] = "Bearer " + newToken;
-
-        processQueue(null, newToken);
+        processQueue(null);
 
         return API(originalRequest);
 
       } catch (refreshError) {
-        processQueue(refreshError, null);
+        processQueue(refreshError);
         localStorage.removeItem("user");
         window.location.href = "/login";
         return Promise.reject(refreshError);
