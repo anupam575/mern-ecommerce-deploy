@@ -1,48 +1,39 @@
-// utils/sendToken.js
 import { generateAccessToken, generateRefreshToken } from "../models/userModel.js";
 import { formatUser } from "../utils/formatUser.js";
 
 /**
- * Send JWT tokens to the client in cookies (cross-origin ready for local + deploy)
- * @param {Object} user - Mongoose user document
+ * Send JWT tokens to the client in cookies
+ * @param {Object} user - Mongoose document
  * @param {number} statusCode - HTTP status code
  * @param {Object} res - Express response object
- * @param {string} message - Optional message
  */
-const sendToken = (user, statusCode, res, message = "Operation successful") => {
+const sendToken = (user, statusCode, res) => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
-  // ✅ Detect environment
   const isProduction = process.env.NODE_ENV === "production";
 
-  // ✅ Cookie options
   const cookieOptions = (expiresIn) => ({
     expires: new Date(Date.now() + expiresIn),
     httpOnly: true,
-    secure: isProduction,               // HTTPS only in production
-    sameSite: isProduction ? "None" : "Lax", // cross-origin in prod, lax in dev
+    secure: isProduction,
+    sameSite: isProduction ? "None" : "Lax",
     path: "/",
   });
 
   const accessOptions = cookieOptions(15 * 60 * 1000);        // 15 mins
   const refreshOptions = cookieOptions(7 * 24 * 60 * 60 * 1000); // 7 days
 
-  const safeUser = formatUser(user); // sanitize user data
+  const safeuser = formatUser(user); // still use formatUser
 
-  // ✅ Set cookies and return JSON
   res
     .status(statusCode)
     .cookie("accessToken", accessToken, accessOptions)
     .cookie("refreshToken", refreshToken, refreshOptions)
-    .json({ success: true, message, user: safeUser });
+    .json({
+      success: true,
+      user: safeuser,
+    });
 };
 
 export default sendToken;
-
-
-
-
-
-
-
