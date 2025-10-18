@@ -1,4 +1,5 @@
 /* =========================
+/* =========================
    Product Details Page
 ========================= */
 .amazon-product-container {
@@ -27,20 +28,7 @@
   display: flex;
   gap: 10px;
 }
-/* Zoomed Image Box */
-.zoom-result {
-  position: absolute;
-  top: 120px;
-  left: 720px; /* adjust according to main image */
-  width: 500px;
-  height: 400px;
-  border: 1px solid #ccc;
-  background-repeat: no-repeat;
-  z-index: 10;
-  margin-top: 50px;
-  border-radius: 6px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
+
 
 /* Optional: Thumbnails hover effect */
 .thumbnail-image:hover {
