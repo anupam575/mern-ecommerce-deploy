@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -7,23 +7,19 @@ import API from "../utils/axiosInstance";
 import { addCartItem } from "../redux/slices/cartSlice";
 import { setProduct, clearProduct } from "../redux/slices/productSlice";
 import ReviewSection from "./ReviewSection";
+import ImageZoom from "./ImageZoom";
 
 import "./style/ProductDetails.css";
 
 function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.product.product);
+  const product = useSelector((state) => state.producting.product);
 
   const [loading, setLoading] = useState(true);
   const [mainImage, setMainImage] = useState(null);
   const [error, setError] = useState(null);
 
-  const [showZoom, setShowZoom] = useState(false);
-  const [zoomPos, setZoomPos] = useState({ x: 0, y: 0 });
-  const imageRef = useRef();
-
-  // ✅ Fetch product details
   const fetchProductDetails = async () => {
     setLoading(true);
     setError(null);
@@ -45,7 +41,6 @@ function ProductDetails() {
     return () => dispatch(clearProduct());
   }, [id, dispatch]);
 
-  // ✅ Add to cart
   const handleAddToCart = async () => {
     if (!product) return;
     try {
@@ -56,57 +51,16 @@ function ProductDetails() {
     }
   };
 
-  // ✅ Zoom handlers
-  const handleMouseMove = (e) => {
-    const rect = imageRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setZoomPos({ x, y });
-  };
-  const handleMouseEnter = () => setShowZoom(true);
-  const handleMouseLeave = () => setShowZoom(false);
-
-  // ✅ Loading / error UI
-  if (loading) {
-    return (
-      <div className="loading-placeholder">
-        <div className="img-skeleton" />
-        <p>Loading product details...</p>
-      </div>
-    );
-  }
-
+  if (loading) return <div className="loading-placeholder">Loading...</div>;
   if (error) return <p className="error-message">{error}</p>;
   if (!product) return <p>❌ Product not found.</p>;
 
   return (
     <>
       <div className="amazon-product-container">
-        {/* Left Section (Images) */}
         <div className="amazon-product-left">
-          {!loading && mainImage && (
-            <img
-              src={mainImage || "/placeholder.png"}
-              alt={product.name}
-              className="amazon-product-image"
-              ref={imageRef}
-              onMouseMove={handleMouseMove}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onError={(e) => (e.target.src = "/placeholder.png")}
-            />
-          )}
-
-          {showZoom && mainImage && (
-            <div
-              className="zoom-result"
-              style={{
-                backgroundImage: `url(${mainImage})`,
-                backgroundPosition: `${(zoomPos.x / imageRef.current.offsetWidth) * 100}% ${(zoomPos.y / imageRef.current.offsetHeight) * 100}%`,
-                backgroundSize: `${imageRef.current.offsetWidth * 2}px ${imageRef.current.offsetHeight * 2}px`,
-              }}
-            />
-          )}
+          {/* Desktop Hover Zoom */}
+          {mainImage && <ImageZoom src={mainImage} />}
 
           <div className="amazon-product-thumbnails">
             {product.images?.map((img, idx) => (
@@ -122,7 +76,6 @@ function ProductDetails() {
           </div>
         </div>
 
-        {/* Right Section (Details) */}
         <div className="amazon-product-right">
           <h2 className="amazon-product-title">{product.name}</h2>
           <p className="amazon-product-description">{product.description}</p>
@@ -150,7 +103,6 @@ function ProductDetails() {
             <button
               className="add-to-cart-btn"
               onClick={handleAddToCart}
-              aria-label="Add product to cart"
               disabled={!product.inStock}
             >
               {product.inStock ? "Add to Cart" : "Unavailable"}
@@ -165,3 +117,4 @@ function ProductDetails() {
 }
 
 export default ProductDetails;
+
