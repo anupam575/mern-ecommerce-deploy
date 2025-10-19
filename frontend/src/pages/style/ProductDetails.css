@@ -1,5 +1,4 @@
 /* =========================
-/* =========================
    Product Details Page
 ========================= */
 .amazon-product-container {
@@ -23,29 +22,26 @@
   object-fit: contain;
   margin-bottom: 10px;
 }
-
-.amazon-product-thumbnails {
-  display: flex;
-  gap: 10px;
-}
-
-
-/* Optional: Thumbnails hover effect */
-.thumbnail-image:hover {
-  border-color: #f0c14b;
-}
-
-
+/* Thumbnail images */
 .thumbnail-image {
-  width: 60px;
+  width: 60px;             /* Thumbnail size */
   height: 60px;
-  object-fit: contain;
-  cursor: pointer;
-  border: 2px solid transparent;
+  object-fit: fill;       /* Maintain aspect ratio */
+  cursor: pointer;         /* Pointer on hover */
+  border: 2px solid transparent; /* Default border */
+  border-radius: 4px;      /* Rounded corners */
+  transition: border 0.2s, transform 0.2s; /* Smooth hover effect */
 }
 
+/* Hover effect */
+.thumbnail-image:hover {
+  border: 2px solid #007185; /* Hover border color */
+  transform: scale(1.05);    /* Slight zoom on hover */
+}
+
+/* Selected thumbnail */
 .thumbnail-image.selected {
-  border-color: #f0c14b; /* highlight selected thumbnail */
+  border: 2px solid #ff9900; /* Highlight selected thumbnail */
 }
 
 /* -------- Left (Image) -------- */
