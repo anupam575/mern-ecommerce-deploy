@@ -108,24 +108,36 @@ export const getAdminProducts = async (req, res, next) => {
   }
 };
 
-//
-export const getProductDetails = async (req, res, next) => {
+
+export const getProductDetails = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
       .populate("category", "name")
       .populate("reviews.user", "name email")
-      .lean(); // ✅ better performance
+      .lean();
 
     if (!product) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Product not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
     }
+
+    // ✅ Backend पर ही thumbnail और main image logic तय कर दो
+    const images = product.images?.map((img) => ({
+      url: img.url,
+      public_id: img.public_id,
+    })) || [];
+
+    const mainImage = images.length > 0 ? images[0].url : "/placeholder.png";
 
     res.status(200).json({
       success: true,
-      product: {
+      dog: {
         ...product,
+        images,
+        mainImage,
+        thumbnails: images.map((img) => img.url),
         inStock: product.stock > 0,
         lowStock: product.stock > 0 && product.stock <= 5,
         isAvailable: product.stock > 0 && product.isActive !== false,
