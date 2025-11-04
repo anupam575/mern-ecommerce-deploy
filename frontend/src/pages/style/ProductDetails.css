@@ -1,0 +1,171 @@
+/* Container */
+.amazon-product-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 10rem auto;
+  max-width: 1200px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Left side: images */
+.amazon-product-left {
+  flex: 1;
+  min-width: 300px;
+}
+
+.amazon-product-left img {
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.amazon-product-left img:hover {
+  transform: scale(1.02);
+}
+
+/* Thumbnails */
+.amazon-product-thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.thumbnail-image {
+  width: 60px;
+  height: 60px;
+  object-fit: fill;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: border 0.2s;
+}
+
+.thumbnail-image.selected {
+  border-color: #007185; /* Amazon-blue */
+}
+
+/* Right side: product info */
+.amazon-product-right {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.amazon-product-right h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.amazon-product-right p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Rating */
+.icon.star {
+  color: #f0c14b; /* Amazon gold */
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+/* Stock status */
+.low-stock {
+  color: #b12704;
+  font-weight: 600;
+}
+
+.in-stock {
+  color: #007600;
+  font-weight: 600;
+}
+
+.out-of-stock {
+  color: #555;
+  font-weight: 600;
+}
+
+/* Stock icons */
+.icon.warning {
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.icon.check {
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+.icon.cross {
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+/* Add to Cart button */
+.add-to-cart-btn {
+  background-color: #ffd814;
+  color: #111;
+  font-weight: 600;
+  border: 1px solid #fcd200;
+  border-radius: 5px;
+padding: 0.8rem 1.2rem;
+width: fit-content;        /* content के हिसाब से width */
+  min-width: 120px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background-color: #f7ca00;
+  transform: translateY(-1px);
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  color: #888;
+}
+
+/* Cart icon */
+.icon.cart {
+  font-size: 1.2rem !important;
+}
+
+/* Loading placeholder */
+.loading-placeholder {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 3rem 0;
+  color: #555;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .amazon-product-container {
+    flex-direction: column;
+  }
+
+  .amazon-product-left,
+  .amazon-product-right {
+    min-width: 100%;
+  }
+
+  .amazon-product-thumbnails {
+    justify-content: flex-start;
+  }
+}

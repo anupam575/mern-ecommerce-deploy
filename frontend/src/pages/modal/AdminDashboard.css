@@ -1,0 +1,214 @@
+/* ========== DASHBOARD LAYOUT ========== */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: darkslategrey;
+  font-family: "Inter", sans-serif;
+  position: relative;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebars {
+  width: 260px;
+  background: linear-gradient(180deg, #1e293b, #0f172a);
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 113px; /* adjust if header exists */
+  bottom: 0;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Sidebar open/close classes */
+.sidebars.closed {
+  left: -300px; /* hidden */
+}
+.sidebars.open {
+  left: 0; /* visible */
+}
+
+.sidebars-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 10px;
+}
+
+.sidebars-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebars-menu li {
+  margin-bottom: 10px;
+}
+
+.sidebars-menu a {
+  display: block;
+  padding: 12px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #e2e8f0;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.sidebars-menu a:hover,
+.sidebars-menu .active {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+/* Expandable Product Modal links */
+.product-modal {
+  margin-bottom: 10px;
+}
+
+.create-toggle {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 12px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.create-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.create-submenu {
+  list-style: none;
+  padding-left: 15px;
+  margin-top: 5px;
+}
+
+.create-link {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #cbd5e1;
+  transition: 0.3s;
+}
+
+.create-link:hover,
+.create-link.active {
+  background-color: #1d4ed8;
+  color: #fff;
+}
+
+ .main-content {
+  flex: 1;
+  background-color: #ffffff;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+  margin-left: -10px; 
+} 
+
+/* When sidebar closed (desktop toggle) */
+.main-content.shifted {
+  margin-left: 0;
+}
+.sidebars {
+  overflow-y: scroll; /* scroll enable रहेगा */
+}
+
+/* Scrollbar hide for all browsers */
+.sidebars::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.sidebars {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hamburger-btn {
+  position: fixed;
+  top: 138px;
+  left: 15px;
+  z-index: 1200;
+  background: white;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hamburger-btn:hover {
+  background-color: greenyellow;
+  color: white;
+  border-color: greenyellow;
+}
+
+.sidebars {
+  transition: all 0.3s ease;
+}
+
+.sidebars.closed {
+  transform: translateX(-100%);
+}
+
+.sidebars.open {
+  transform: translateX(0);
+}
+
+
+
+/* ========== RESPONSIVE RULES ========== */
+@media (max-width: 1024px) {
+  /* Reduce sidebar width on smaller screens if needed */
+  .sidebars {
+    width: 240px;
+  }
+  .main-content {
+    margin-left: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile: sidebar hidden by default */
+  .sidebars {
+    left: -260px;
+    top: 80px; /* adjust header height */
+  }
+  .sidebars.open {
+    left: 0;
+            top: 103px;
+  }
+
+  .hamburger-btn {
+    display: block;
+    top:124px;
+            margin-left: -11px;
+  }
+
+  .close-btn {
+    display: block;
+    align-self: flex-end;
+  }
+
+  .main-content {
+    margin-left: -30px !important;
+    padding: 20px;
+  }
+
+  .overlay {
+    display: block;
+  }
+}

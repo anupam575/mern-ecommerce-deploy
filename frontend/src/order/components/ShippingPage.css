@@ -1,0 +1,68 @@
+.shipping-container {
+  max-width: 600px;
+  margin: 140px auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.shipping-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin: 0 5px;
+}
+
+.btn-payment {
+  background: #0070f3;
+  color: white;
+}
+
+.btn-payment:hover {
+  background: #005ad3;
+}
+
+.btn-cod {
+  background: #2ecc71;
+  color: white;
+}
+
+.btn-cod:hover {
+  background: #27ae60;
+}

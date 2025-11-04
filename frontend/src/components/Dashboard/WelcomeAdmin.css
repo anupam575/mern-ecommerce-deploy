@@ -1,0 +1,103 @@
+/* ===== Base Layout ===== */
+.welcome-container {
+  width: 100%;
+  height:  100%;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* mobile ke liye thoda gap */
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+/* ===== Card ===== */
+.welcome-card {
+  background: #fff;
+  padding: 40px 60px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  animation: slideUp 1s ease-in-out;
+}
+
+/* ===== Title ===== */
+.welcome-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 10px;
+}
+
+/* ===== Subtitle ===== */
+.welcome-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+/* ===== Button ===== */
+.explore-btn {
+  background-color: #4f46e5;
+  color: #fff;
+  border: none;
+  padding: 12px 35px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  background-color: #4338ca;
+  transform: translateY(-2px);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== Responsive Breakpoints ===== */
+
+/* Tablet view */
+@media (max-width: 992px) {
+  .welcome-card {
+    padding: 30px 40px;
+    max-width: 500px;
+  }
+  .welcome-title {
+    font-size: 1.8rem;
+  }
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 600px) {
+  .welcome-card {
+    padding: 25px 20px;
+    border-radius: 14px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+  .welcome-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+  .explore-btn {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
+}

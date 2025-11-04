@@ -1,0 +1,27 @@
+/* src/components/style/Create.css */
+
+.create-submenu {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+
+.create-submenu li {
+  margin-bottom: 6px;
+}
+
+.create-link {
+  display: inline-block;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 4px 2px;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+
+.create-link.active {
+  color: #f0f0f0;
+  text-decoration: underline;
+  font-weight: 500;
+}
